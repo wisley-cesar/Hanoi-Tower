@@ -1,39 +1,23 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class Torre : MonoBehaviour {
-
-    float posY;
-
-    public GameObject tower;
-
-    public List<GameObject> listOfTowers;
-
+public class movimento : MonoBehaviour
+{
+    // Start is called before the first frame update
     void Start()
     {
-        instantiateTowers();
+        
     }
 
-	void Update () {
-        //Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + posY, transform.position.z), Color.red);
-    }
-
-    public void instantiateTowers()
+    // Update is called once per frame
+    void Update()
     {
-        CreateCylinders script = GameObject.Find("Spawner").GetComponent<CreateCylinders>();
-        if (script.qnt > 10)
-        {
-            posY = (((float)script.qnt - 10.0f) / 10.0f) + 1.0f;
-        }
-        else
-        {
-            posY = (float)script.qnt / 10.0f;
-        }
-
-        GameObject go = Instantiate(tower, this.transform.position, Quaternion.identity) as GameObject;
-        go.transform.localScale = new Vector3(go.transform.localScale.x, go.transform.localScale.y + posY, go.transform.localScale.z);
-        go.name = this.name + " tower";
+      
     }
-
-}
+    void OnMouseDrag()
+    {
+        // Moves an object up 2 units
+        transform.position += new Vector3(0, 2, 0);
+    }
+}   

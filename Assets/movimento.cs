@@ -1,29 +1,39 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class movimento : MonoBehaviour
-{
-    // Start is called before the first frame update
+public class Torre : MonoBehaviour {
+
+    float posY;
+
+    public GameObject tower;
+
+    public List<GameObject> listOfTowers;
+
     void Start()
     {
-        
+        instantiateTowers();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-         if (Input.GetMouseButtonDown(0))
-    {
-        // Quando o botão esquerdo do mouse é pressionado
-        // Verifique se o mouse está sobre um disco no Pino 1 e, se sim, marque o disco como "selecionado".
-    }
-    
-    if (Input.GetMouseButtonUp(0))
-    {
-        // Quando o botão esquerdo do mouse é liberado
-        // Se um disco estiver marcado como "selecionado", verifique se ele pode ser movido para o Pino 2 e, se sim, mova-o.
+	void Update () {
+        //Debug.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y + posY, transform.position.z), Color.red);
     }
 
+    public void instantiateTowers()
+    {
+        CreateCylinders script = GameObject.Find("Spawner").GetComponent<CreateCylinders>();
+        if (script.qnt > 10)
+        {
+            posY = (((float)script.qnt - 10.0f) / 10.0f) + 1.0f;
+        }
+        else
+        {
+            posY = (float)script.qnt / 10.0f;
+        }
+
+        GameObject go = Instantiate(tower, this.transform.position, Quaternion.identity) as GameObject;
+        go.transform.localScale = new Vector3(go.transform.localScale.x, go.transform.localScale.y + posY, go.transform.localScale.z);
+        go.name = this.name + " tower";
     }
+
 }
